@@ -1,0 +1,16 @@
+package com.aztu.support.dto.auth;
+
+import com.aztu.support.dto.user.UserResponse;
+
+/** Returned on successful login / token refresh. */
+public record AuthResponse(
+        String accessToken,
+        String refreshToken,
+        String tokenType,
+        long expiresIn,
+        UserResponse user) {
+
+    public static AuthResponse of(String accessToken, String refreshToken, long expiresIn, UserResponse user) {
+        return new AuthResponse(accessToken, refreshToken, "Bearer", expiresIn, user);
+    }
+}

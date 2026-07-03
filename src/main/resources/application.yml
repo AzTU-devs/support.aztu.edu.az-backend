@@ -1,0 +1,92 @@
+spring:
+  application:
+    name: aztu-support-api
+
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/aztu_support}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+    hikari:
+      maximum-pool-size: ${DB_POOL_SIZE:5}
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: false
+        jdbc:
+          time_zone: UTC
+        # Map java.time.Instant columns to "timestamp with time zone" (matches the schema).
+        type:
+          preferred_instant_jdbc_type: TIMESTAMP_WITH_TIMEZONE
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+
+  mail:
+    host: ${MAIL_HOST:smtp.gmail.com}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 25MB
+
+  thymeleaf:
+    check-template-location: false
+
+server:
+  port: ${SERVER_PORT:8080}
+
+# Application-specific configuration (all business rules are configurable).
+app:
+  # Comma-separated list of origins allowed by CORS (the frontend URL).
+  cors:
+    allowed-origins: ${FRONTEND_URL:http://localhost:3000}
+  frontend-url: ${FRONTEND_URL:http://localhost:3000}
+
+  # Corporate email domain new sign-ups are restricted to (validated on the backend).
+  allowed-email-domain: ${ALLOWED_EMAIL_DOMAIN:aztu.edu.az}
+
+  # When true, users must verify their email (in addition to admin approval) before login.
+  require-email-verification: ${REQUIRE_EMAIL_VERIFICATION:true}
+
+  jwt:
+    # HMAC-SHA secret. MUST be overridden in production via JWT_SECRET (>= 32 bytes).
+    secret: ${JWT_SECRET:change-me-in-production-a-very-long-development-only-secret-key-1234567890}
+    issuer: aztu-support
+    access-token-expiration-minutes: ${JWT_ACCESS_EXP_MINUTES:30}
+    refresh-token-expiration-days: ${JWT_REFRESH_EXP_DAYS:14}
+
+  mail:
+    from: ${MAIL_FROM:firdovsirz@gmail.com}
+    from-name: ${MAIL_FROM_NAME:AzTU Support}
+    # When false, emails are logged instead of sent (useful for local dev without SMTP).
+    enabled: ${MAIL_ENABLED:true}
+
+  tokens:
+    password-reset-expiration-minutes: ${PASSWORD_RESET_EXP_MINUTES:60}
+    email-verification-expiration-hours: ${EMAIL_VERIFICATION_EXP_HOURS:48}
+
+  storage:
+    # Directory where ticket attachments are stored.
+    upload-dir: ${UPLOAD_DIR:./uploads}
+
+logging:
+  level:
+    com.aztu.support: ${APP_LOG_LEVEL:INFO}
+    org.flywaydb: INFO

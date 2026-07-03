@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title th:text="${subject}">AzTU Support</title>
+</head>
+<body style="margin:0; padding:0; background-color:#f1f5f9; font-family:Segoe UI, Arial, sans-serif; color:#1e293b;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f1f5f9; padding:24px 0;">
+    <tr>
+        <td align="center">
+            <table role="presentation" width="600" cellpadding="0" cellspacing="0"
+                   style="max-width:600px; width:100%; background-color:#ffffff; border-radius:12px; overflow:hidden; box-shadow:0 1px 3px rgba(0,0,0,0.08);">
+                <!-- Header -->
+                <tr>
+                    <td style="background-color:#1b2354; padding:28px 32px;">
+                        <span style="color:#ffffff; font-size:20px; font-weight:700; letter-spacing:0.3px;">AzTU</span><span
+                            style="color:#5297d4; font-size:20px; font-weight:700;">Support</span>
+                    </td>
+                </tr>
+                <!-- Body -->
+                <tr>
+                    <td style="padding:32px;">
+                        <h1 th:text="${heading}"
+                            style="margin:0 0 16px; font-size:22px; font-weight:700; color:#1b2354;">Notification</h1>
+                        <p th:if="${greeting}" th:text="${greeting}"
+                           style="margin:0 0 16px; font-size:15px; line-height:1.6;">Hello,</p>
+                        <p th:each="para : ${paragraphs}" th:text="${para}"
+                           style="margin:0 0 14px; font-size:15px; line-height:1.6; color:#334155;">Paragraph.</p>
+
+                        <table th:if="${ctaUrl}" role="presentation" cellpadding="0" cellspacing="0" style="margin:24px 0;">
+                            <tr>
+                                <td style="border-radius:8px; background-color:#1b2354;">
+                                    <a th:href="${ctaUrl}" th:text="${ctaLabel}"
+                                       style="display:inline-block; padding:12px 28px; font-size:15px; font-weight:600; color:#ffffff; text-decoration:none;">Open</a>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <p th:if="${ctaUrl}"
+                           style="margin:8px 0 0; font-size:12px; line-height:1.5; color:#94a3b8; word-break:break-all;">
+                            If the button doesn't work, copy this link into your browser:<br/>
+                            <a th:href="${ctaUrl}" th:text="${ctaUrl}" style="color:#5297d4;">link</a>
+                        </p>
+
+                        <p th:if="${footerNote}" th:text="${footerNote}"
+                           style="margin:24px 0 0; font-size:13px; line-height:1.5; color:#64748b;">Note.</p>
+                    </td>
+                </tr>
+                <!-- Footer -->
+                <tr>
+                    <td style="padding:20px 32px; background-color:#f8fafc; border-top:1px solid #e2e8f0;">
+                        <p style="margin:0; font-size:12px; line-height:1.5; color:#94a3b8;">
+                            AzTU Support — Azerbaijan Technical University IT Support.<br/>
+                            This is an automated message; please do not reply directly to this email.
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
