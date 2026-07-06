@@ -3,9 +3,12 @@ spring:
     name: aztu-support-api
 
   datasource:
-    url: ${DB_URL:jdbc:postgresql://localhost:5432/aztu_support}
-    username: ${DB_USERNAME:postgres}
-    password: ${DB_PASSWORD:postgres}
+    # Defaults point to the AzTU Neon PostgreSQL database, so the app connects to Neon
+    # out of the box (including IDE runs that don't load .env). Override any of these via
+    # environment variables / .env for a different environment.
+    url: ${DB_URL:jdbc:postgresql://ep-long-surf-atpfu2pe-pooler.c-9.us-east-1.aws.neon.tech/neondb?sslmode=require}
+    username: ${DB_USERNAME:neondb_owner}
+    password: ${DB_PASSWORD:npg_kVfqptd8QY7o}
     hikari:
       maximum-pool-size: ${DB_POOL_SIZE:5}
 
